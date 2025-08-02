@@ -9,7 +9,7 @@
         "url": "https://github.com/certe-medical-epidemiology/positron-certe"
     },
     "engines": {
-        "vscode": "^1.74.0",
+        "vscode": "^1.100.0",
         "positron": "^2025.07.x"
     },
     "categories": [
