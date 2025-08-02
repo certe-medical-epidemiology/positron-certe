@@ -1,0 +1,159 @@
+{
+    "name": "positron-certe",
+    "displayName": "Certe Positron Extension",
+    "description": "Positron Extension for Certe MedEpi to allow database connections and menu buttons",
+    "version": "0.1.0",
+    "publisher": "Certe Medical Epidemiology",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/certe-medical-epidemiology/positron-certe"
+    },
+    "engines": {
+        "vscode": "^1.74.0",
+        "positron": "^2025.07.x"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "certe.moveTask",
+                "title": "Taak verplaatsen",
+                "enablement": "resourceScheme == 'file'",
+                "icon": "$(remote)",
+                "actionBarOptions": {
+                    "controlType": "button",
+                    "displayTitle": true
+                }
+            },
+            {
+                "command": "certe.openFolder",
+                "title": "Projectmap",
+                "enablement": "resourceScheme == 'file'",
+                "icon": "$(folder)",
+                "actionBarOptions": {
+                    "controlType": "button",
+                    "displayTitle": true
+                }
+            },
+            {
+                "command": "certe.validate",
+                "title": "Valideren",
+                "enablement": "resourceScheme == 'file'",
+                "icon": "$(send)",
+                "actionBarOptions": {
+                    "controlType": "button",
+                    "displayTitle": true
+                }
+            },
+            {
+                "command": "certe.openTeams",
+                "title": "SharePoint",
+                "enablement": "resourceScheme == 'file'",
+                "icon": "$(compass)",
+                "actionBarOptions": {
+                    "controlType": "button",
+                    "displayTitle": true
+                }
+            },
+            
+
+            {
+                "command": "certe.newConsult",
+                "title": "Consult",
+                "icon": "$(diff-added)",
+                "actionBarOptions": {
+                    "controlType": "button",
+                    "displayTitle": true
+                }
+            },
+            {
+                "command": "certe.newProject",
+                "title": "Project",
+                "icon": "$(diff-added)",
+                "actionBarOptions": {
+                    "controlType": "button",
+                    "displayTitle": true
+                }
+            }
+        ],
+        "menus": {
+            "editor/title/context": [
+                {
+                    "command": "certe.moveTask",
+                    "group": "certe@1"
+                },
+                {
+                    "command": "certe.openFolder",
+                    "group": "certe@2"
+                },
+                {
+                    "command": "certe.validate",
+                    "group": "certe@2"
+                },
+                {
+                    "command": "certe.openTeams",
+                    "group": "certe@4"
+                }
+            ],
+            "editor/actions/left": [
+                {
+                    "command": "certe.moveTask",
+                    "group": "certe@1"
+                },
+                {
+                    "command": "certe.openFolder",
+                    "group": "certe@2"
+                },
+                {
+                    "command": "certe.validate",
+                    "group": "certe@2"
+                },
+                {
+                    "command": "certe.openTeams",
+                    "group": "certe@4"
+                }
+            ],
+            "editor/actions/right": [
+                {
+                    "command": "certe.newConsult",
+                    "group": "certe@10"
+                },
+                {
+                    "command": "certe.newProject",
+                    "group": "certe@11"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "lint": "eslint",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "test": "vscode-test"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.13.0",
+        "@stylistic/eslint-plugin": "^2.9.0",
+        "@types/mocha": "^10.0.10",
+        "@types/node": "^20",
+        "@types/sinon": "^17.0.4",
+        "@types/vscode": "^1.100.0",
+        "@vscode/test-cli": "^0.0.11",
+        "@vscode/test-electron": "^2.5.2",
+        "eslint": "^9.13.0",
+        "glob": "^11.0.0",
+        "mocha": "^11.6.0",
+        "sinon": "^20.0.0",
+        "typescript": "^5.8.2",
+        "typescript-eslint": "^8.26.0"
+    },
+    "dependencies": {
+        "@posit-dev/positron": "^0.1.3"
+    }
+}
