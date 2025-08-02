@@ -36,8 +36,6 @@ jobs:
         with:
           node-version: 22.x
 
-      - run: npm install -g @vscode/vsce
-
       - run: npm install
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
