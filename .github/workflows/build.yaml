@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - "**"
-    tags:
-      - "v*"
 
 jobs:
   build:
@@ -29,18 +27,24 @@ jobs:
             arch: arm64
             npm_config_arch: arm64
     runs-on: ${{ matrix.os }}
+    env:
+      target: positron-certe-${{ matrix.platform }}-${{ matrix.arch }}
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22.x
+
+      - run: npm install -g @vscode/vsce
+
       - run: npm install
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           npm_config_arch: ${{ matrix.npm_config_arch }}
-      - shell: pwsh
-        run: echo "target=${{ matrix.platform }}-${{ matrix.arch }}" >> $env:GITHUB_ENV
+
       - run: npx vsce package --target ${{ env.target }}
+
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.target }}
