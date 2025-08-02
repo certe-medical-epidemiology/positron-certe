@@ -28,7 +28,7 @@ jobs:
             npm_config_arch: arm64
     runs-on: ${{ matrix.os }}
     env:
-      target: positron-certe-${{ matrix.platform }}-${{ matrix.arch }}
+      target: ${{ matrix.platform }}-${{ matrix.arch }}
     steps:
       - uses: actions/checkout@v4
 
