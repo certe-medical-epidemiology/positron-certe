@@ -36,7 +36,7 @@ jobs:
         with:
           node-version: 22.x
 
-      - run: npm install
+      - run: npm install --save-dev @types/vscode@1.74.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           npm_config_arch: ${{ matrix.npm_config_arch }}
