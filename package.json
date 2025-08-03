@@ -42,6 +42,16 @@
                 }
             },
             {
+                "command": "certe.copyFolderLink",
+                "title": "Maplink kopiëren",
+                "enablement": "resourceScheme == 'file'",
+                "icon": "$(link)",
+                "actionBarOptions": {
+                    "controlType": "button",
+                    "displayTitle": true
+                }
+            },
+            {
                 "command": "certe.validate",
                 "title": "Valideren",
                 "enablement": "resourceScheme == 'file'",
@@ -52,7 +62,7 @@
                 }
             },
             {
-                "command": "certe.openTeams",
+                "command": "certe.openSharePoint",
                 "title": "SharePoint",
                 "enablement": "resourceScheme == 'file'",
                 "icon": "$(compass)",
@@ -93,12 +103,16 @@
                     "group": "certe@2"
                 },
                 {
-                    "command": "certe.validate",
-                    "group": "certe@2"
+                    "command": "certe.copyFolderLink",
+                    "group": "certe@3"
                 },
                 {
-                    "command": "certe.openTeams",
+                    "command": "certe.validate",
                     "group": "certe@4"
+                },
+                {
+                    "command": "certe.openSharePoint",
+                    "group": "certe@5"
                 }
             ],
             "editor/actions/left": [
@@ -111,12 +125,16 @@
                     "group": "certe@2"
                 },
                 {
-                    "command": "certe.validate",
-                    "group": "certe@2"
+                    "command": "certe.copyFolderLink",
+                    "group": "certe@3"
                 },
                 {
-                    "command": "certe.openTeams",
+                    "command": "certe.validate",
                     "group": "certe@4"
+                },
+                {
+                    "command": "certe.openSharePoint",
+                    "group": "certe@5"
                 }
             ],
 
