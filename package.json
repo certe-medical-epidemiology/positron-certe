@@ -15,7 +15,9 @@
     "categories": [
         "Other"
     ],
-    "activationEvents": [],
+    "activationEvents": [
+        "onStartupFinished"
+    ],
     "main": "./out/extension.js",
     "contributes": {
         "commands": [
@@ -117,6 +119,8 @@
                     "group": "certe@4"
                 }
             ],
+
+
             "editor/actions/right": [
                 {
                     "command": "certe.newConsult",

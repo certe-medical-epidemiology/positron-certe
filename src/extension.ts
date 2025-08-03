@@ -1,11 +1,20 @@
 import * as vscode from 'vscode';
 import { tryAcquirePositronApi } from "@posit-dev/positron";
+import { register } from 'module';
 
 export function activate(context: vscode.ExtensionContext) {
+    const positron = tryAcquirePositronApi();
+
+    // open up our MySQL connection in the Connections pane
+    positron?.runtime.executeCode(
+        "r",
+        'certedb::mysql_in_connections_pane()',
+        false // do not focus to Console
+    );
+
     const openFolderCmd = vscode.commands.registerCommand(
         "certe.openFolder",
         () => {
-            const positron = tryAcquirePositronApi();
             positron?.runtime.executeCode(
                 "r",
                 'certeprojects::project_open_folder()',
@@ -18,7 +27,6 @@ export function activate(context: vscode.ExtensionContext) {
     const moveTaskCmd = vscode.commands.registerCommand(
         "certe.moveTask",
         () => {
-            const positron = tryAcquirePositronApi();
             positron?.runtime.executeCode(
                 "r",
                 'certeprojects::project_update()',
@@ -32,7 +40,6 @@ export function activate(context: vscode.ExtensionContext) {
     const newConsult = vscode.commands.registerCommand(
         "certe.newConsult",
         () => {
-            const positron = tryAcquirePositronApi();
             positron?.runtime.executeCode(
                 "r",
                 'certeprojects::consult_add()',
@@ -45,7 +52,6 @@ export function activate(context: vscode.ExtensionContext) {
     const newProject = vscode.commands.registerCommand(
         "certe.newProject",
         () => {
-            const positron = tryAcquirePositronApi();
             positron?.runtime.executeCode(
                 "r",
                 'certeprojects::project_add()',
