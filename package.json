@@ -1,10 +1,11 @@
 {
     "name": "positron-certe",
     "displayName": "Certe MedEpi",
-    "description": "Positron Extension for Certe MedEpi to allow Positron colour themes, database connections and menu buttons.",
-    "version": "1.0.0",
+    "description": "Positron Extension for Certe, MedEpi to allow Positron project support.",
+    "version": "1.0.1",
     "icon": "images/logo.png",
-    "publisher": "Stichting Certe",
+    "publisher": "Stichting Certe Medische Diagnostiek en Advies",
+    "author": "Matthijs Berends <m.berends@certe.nl>",
     "repository": {
         "type": "git",
         "url": "https://github.com/certe-medical-epidemiology/positron-certe"
@@ -95,6 +96,16 @@
                 }
             },
             {
+                "command": "certe.authorise",
+                "title": "Autoriseren",
+                "enablement": "resourceScheme == 'file'",
+                "icon": "$(pass)",
+                "actionBarOptions": {
+                    "controlType": "button",
+                    "displayTitle": true
+                }
+            },
+            {
                 "command": "certe.openSharePoint",
                 "title": "SharePoint",
                 "enablement": "resourceScheme == 'file'",
@@ -140,12 +151,16 @@
                     "group": "certe@3"
                 },
                 {
-                    "command": "certe.validate",
+                    "command": "certe.openSharePoint",
                     "group": "certe@4"
                 },
                 {
-                    "command": "certe.openSharePoint",
+                    "command": "certe.validate",
                     "group": "certe@5"
+                },
+                {
+                    "command": "certe.authorise",
+                    "group": "certe@6"
                 }
             ],
             "editor/actions/left": [
@@ -162,12 +177,16 @@
                     "group": "certe@3"
                 },
                 {
-                    "command": "certe.validate",
+                    "command": "certe.openSharePoint",
                     "group": "certe@4"
                 },
                 {
-                    "command": "certe.openSharePoint",
+                    "command": "certe.validate",
                     "group": "certe@5"
+                },
+                {
+                    "command": "certe.authorise",
+                    "group": "certe@6"
                 }
             ],
 

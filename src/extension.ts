@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 import { tryAcquirePositronApi } from "@posit-dev/positron";
+import * as path from "path";
+import * as os from "os";
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -67,18 +69,6 @@ export function activate(context: vscode.ExtensionContext) {
     );
     context.subscriptions.push(copyFolderLinkCmd);
 
-    const validateCmd = vscode.commands.registerCommand(
-        "certe.validate",
-        () => {
-            positron?.runtime.executeCode(
-                "r",
-                'certeprojects:::positron_validate()',
-                false // do not focus to Console
-            );
-        }
-    );
-    context.subscriptions.push(validateCmd);
-
     const openSharePointCmd = vscode.commands.registerCommand(
         "certe.openSharePoint",
         () => {
@@ -90,6 +80,34 @@ export function activate(context: vscode.ExtensionContext) {
         }
     );
     context.subscriptions.push(openSharePointCmd);
+
+    const validateCmd = vscode.commands.registerCommand("certe.validate", async (uri?: vscode.Uri) => {
+        const fileName = uri?.fsPath ? path.basename(uri.fsPath) : "??";
+        const userName = os.userInfo().username;
+        const result = await vscode.window.showInformationMessage(
+            `Hiermee wordt het bestand '${fileName}' nu gevalideerd als gebruiker '${userName}'.\n\nDit wordt gelogd in SharePoint en er wordt een label aangemaakt in de Planner-taak.`,
+            { modal: true },
+            "OK"
+        );
+        if (result === "OK") {
+            positron?.runtime.executeCode("r", "certeprojects:::positron_validate()", false);
+        }
+    });
+    context.subscriptions.push(validateCmd);
+
+    const authoriseCmd = vscode.commands.registerCommand("certe.authorise", async (uri?: vscode.Uri) => {
+        const fileName = uri?.fsPath ? path.basename(uri.fsPath) : "??";
+        const userName = os.userInfo().username;
+        const result = await vscode.window.showWarningMessage(
+            `Hiermee wordt het bestand '${fileName}' nu geautoriseerd als gebruiker '${userName}'.\n\nDit wordt gelogd in SharePoint en de Planner-taak wordt bijgewerkt.`,
+            { modal: true },
+            "OK"
+        );
+        if (result === "OK") {
+            positron?.runtime.executeCode("r", "certeprojects:::positron_authorise()", false);
+        }
+    });
+    context.subscriptions.push(authoriseCmd);
 
 
     const newConsult = vscode.commands.registerCommand(
