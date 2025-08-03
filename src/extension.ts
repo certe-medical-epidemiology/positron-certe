@@ -1,8 +1,23 @@
 import * as vscode from 'vscode';
 import { tryAcquirePositronApi } from "@posit-dev/positron";
-import { register } from 'module';
 
 export function activate(context: vscode.ExtensionContext) {
+
+    // set Certe colour theme as default
+    const config = vscode.workspace.getConfiguration();
+    const themeSetting = config.inspect<string>('workbench.colorTheme')
+    if (themeSetting && themeSetting.globalValue === undefined) {
+        config.update('workbench.colorTheme', 'Certe Light (certeblauw)', vscode.ConfigurationTarget.Global);
+    }
+
+    // set material icon theme if not set yet
+    const iconThemeSetting = config.inspect<string>('workbench.iconTheme');
+    console.log('iconThemeSetting:', iconThemeSetting);
+    if (iconThemeSetting && iconThemeSetting.globalValue === undefined) {
+        config.update('workbench.iconTheme', 'material-icon-theme', vscode.ConfigurationTarget.Global);
+    }
+    
+    // set up addins
     const positron = tryAcquirePositronApi();
 
     // open up our MySQL connection in the Connections pane

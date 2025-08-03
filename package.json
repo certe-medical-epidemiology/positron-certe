@@ -20,6 +20,38 @@
     ],
     "main": "./out/extension.js",
     "contributes": {
+        "themes": [
+            {
+                "label": "Certe Dark (certeblauw)",
+                "uiTheme": "vs-dark",
+                "path": "./themes/certe-dark-blauw.json"
+            },
+            {
+                "label": "Certe Dark (certeroze)",
+                "uiTheme": "vs-dark",
+                "path": "./themes/certe-dark-roze.json"
+            },
+            {
+                "label": "Certe Dark (certegroen)",
+                "uiTheme": "vs-dark",
+                "path": "./themes/certe-dark-groen.json"
+            },
+            {
+                "label": "Certe Light (certeblauw)",
+                "uiTheme": "vs",
+                "path": "./themes/certe-light-blauw.json"
+            },
+            {
+                "label": "Certe Light (certeroze)",
+                "uiTheme": "vs",
+                "path": "./themes/certe-light-roze.json"
+            },
+            {
+                "label": "Certe Light (certegroen)",
+                "uiTheme": "vs",
+                "path": "./themes/certe-light-groen.json"
+            }
+        ],
         "commands": [
             {
                 "command": "certe.moveTask",
@@ -177,5 +209,8 @@
     },
     "dependencies": {
         "@posit-dev/positron": "^0.1.3"
-    }
+    },
+    "extensionDependencies": [
+        "PKief.material-icon-theme"
+    ]
 }
