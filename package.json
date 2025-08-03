@@ -2,7 +2,7 @@
     "name": "positron-certe",
     "displayName": "Certe MedEpi",
     "description": "Positron Extension for Certe MedEpi to allow Positron colour themes, database connections and menu buttons.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "icon": "images/logo.png",
     "publisher": "Stichting Certe",
     "repository": {
