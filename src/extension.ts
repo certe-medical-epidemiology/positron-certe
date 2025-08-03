@@ -8,6 +8,11 @@ export function activate(context: vscode.ExtensionContext) {
     // open up our MySQL connection in the Connections pane
     positron?.runtime.executeCode(
         "r",
+        'require("certeprojects", quietly = TRUE)',
+        false // do not focus to Console
+    );
+    positron?.runtime.executeCode(
+        "r",
         'certedb::mysql_init()',
         false // do not focus to Console
     );
@@ -17,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
         () => {
             positron?.runtime.executeCode(
                 "r",
-                'certeprojects::positron_moveTask()',
+                'certeprojects:::positron_moveTask()',
                 false // do not focus to Console
             );
         }
@@ -29,7 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
         () => {
             positron?.runtime.executeCode(
                 "r",
-                'certeprojects::positron_openFolder()',
+                'certeprojects:::positron_openFolder()',
                 false // do not focus to Console
             );
         }
@@ -41,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
         () => {
             positron?.runtime.executeCode(
                 "r",
-                'certeprojects::positron_copyFolderLink()',
+                'certeprojects:::positron_copyFolderLink()',
                 false // do not focus to Console
             );
         }
@@ -53,7 +58,7 @@ export function activate(context: vscode.ExtensionContext) {
         () => {
             positron?.runtime.executeCode(
                 "r",
-                'certeprojects::positron_validate()',
+                'certeprojects:::positron_validate()',
                 false // do not focus to Console
             );
         }
@@ -65,7 +70,7 @@ export function activate(context: vscode.ExtensionContext) {
         () => {
             positron?.runtime.executeCode(
                 "r",
-                'certeprojects::positron_openSharePoint()',
+                'certeprojects:::positron_openSharePoint()',
                 false // do not focus to Console
             );
         }
