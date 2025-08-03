@@ -12,7 +12,6 @@ export function activate(context: vscode.ExtensionContext) {
 
     // set material icon theme if not set yet
     const iconThemeSetting = config.inspect<string>('workbench.iconTheme');
-    console.log('iconThemeSetting:', iconThemeSetting);
     if (iconThemeSetting && iconThemeSetting.globalValue === undefined) {
         config.update('workbench.iconTheme', 'material-icon-theme', vscode.ConfigurationTarget.Global);
     }

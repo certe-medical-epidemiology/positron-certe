@@ -1,9 +1,10 @@
 {
     "name": "positron-certe",
-    "displayName": "Certe Positron Extension",
-    "description": "Positron Extension for Certe MedEpi to allow database connections and menu buttons",
+    "displayName": "Certe MedEpi",
+    "description": "Positron Extension for Certe MedEpi to allow Positron colour themes, database connections and menu buttons.",
     "version": "0.1.0",
-    "publisher": "Certe Medical Epidemiology",
+    "icon": "images/logo.png",
+    "publisher": "Stichting Certe",
     "repository": {
         "type": "git",
         "url": "https://github.com/certe-medical-epidemiology/positron-certe"
@@ -180,6 +181,19 @@
                     "command": "certe.newProject",
                     "group": "certe@11"
                 }
+            ]
+        }
+    },
+    "capabilities": {
+        "untrustedWorkspaces": {
+            "supported": true,
+            "trustedDomains": [
+                "certe.nl",
+                "*.certe.nl",
+                "microsoft.com",
+                "*.microsoft.com",
+                "sharepoint.com",
+                "*.sharepoint.com"
             ]
         }
     },
