@@ -81,16 +81,32 @@ export function activate(context: vscode.ExtensionContext) {
     );
     context.subscriptions.push(openSharePointCmd);
 
-    const validateCmd = vscode.commands.registerCommand("certe.validate", async (uri?: vscode.Uri) => {
+    const validateRequestCmd = vscode.commands.registerCommand("certe.validateRequest", async (uri?: vscode.Uri) => {
         const fileName = uri?.fsPath ? path.basename(uri.fsPath) : "??";
-        const userName = os.userInfo().username;
         const result = await vscode.window.showInformationMessage(
-            `Hiermee wordt het bestand '${fileName}' nu gevalideerd als gebruiker '${userName}'.\n\nDit wordt gelogd in SharePoint en er wordt een label aangemaakt in de Planner-taak.`,
+            `Validatieverzoek voor bestand '${fileName}' maken?`,
             { modal: true },
             "OK"
         );
         if (result === "OK") {
-            positron?.runtime.executeCode("r", "certeprojects:::positron_validate()", false);
+            positron?.runtime.executeCode("r", "certeprojects:::positron_validate_request()", false);
+        }
+    });
+    context.subscriptions.push(validateRequestCmd);
+
+    const validateCmd = vscode.commands.registerCommand("certe.validate", async (uri?: vscode.Uri) => {
+        const fileName = uri?.fsPath ? path.basename(uri.fsPath) : "??";
+        const userName = os.userInfo().username;
+        const result = await vscode.window.showInformationMessage(
+            `Hiermee wordt het bestand '${fileName}' gevalideerd als gebruiker '${userName}'.\n\nDit wordt gelogd in SharePoint.`,
+            { modal: true },
+            "Alleen valideren",
+            "Valideren met autorisatieverzoek"
+        );
+        if (result === "Alleen valideren") {
+            positron?.runtime.executeCode("r", "certeprojects:::positron_validate(authorise_request = FALSE)", false);
+        } else if (result === "Valideren met autorisatieverzoek") {
+            positron?.runtime.executeCode("r", "certeprojects:::positron_validate(authorise_request = TRUE)", false);
         }
     });
     context.subscriptions.push(validateCmd);

@@ -58,7 +58,6 @@
             {
                 "command": "certe.moveTask",
                 "title": "Taak verplaatsen",
-                "enablement": "resourceScheme == 'file'",
                 "icon": "$(remote)",
                 "actionBarOptions": {
                     "controlType": "button",
@@ -68,7 +67,6 @@
             {
                 "command": "certe.openFolder",
                 "title": "Projectmap",
-                "enablement": "resourceScheme == 'file'",
                 "icon": "$(folder)",
                 "actionBarOptions": {
                     "controlType": "button",
@@ -78,8 +76,16 @@
             {
                 "command": "certe.copyFolderLink",
                 "title": "Maplink kopiëren",
-                "enablement": "resourceScheme == 'file'",
                 "icon": "$(link)",
+                "actionBarOptions": {
+                    "controlType": "button",
+                    "displayTitle": true
+                }
+            },
+            {
+                "command": "certe.validateRequest",
+                "title": "Validatieverzoek",
+                "icon": "$(feedback)",
                 "actionBarOptions": {
                     "controlType": "button",
                     "displayTitle": true
@@ -88,8 +94,7 @@
             {
                 "command": "certe.validate",
                 "title": "Valideren",
-                "enablement": "resourceScheme == 'file'",
-                "icon": "$(send)",
+                "icon": "$(check)",
                 "actionBarOptions": {
                     "controlType": "button",
                     "displayTitle": true
@@ -98,7 +103,6 @@
             {
                 "command": "certe.authorise",
                 "title": "Autoriseren",
-                "enablement": "resourceScheme == 'file'",
                 "icon": "$(pass)",
                 "actionBarOptions": {
                     "controlType": "button",
@@ -108,7 +112,6 @@
             {
                 "command": "certe.openSharePoint",
                 "title": "SharePoint",
-                "enablement": "resourceScheme == 'file'",
                 "icon": "$(compass)",
                 "actionBarOptions": {
                     "controlType": "button",
@@ -137,56 +140,41 @@
             }
         ],
         "menus": {
-            "editor/title/context": [
-                {
-                    "command": "certe.moveTask",
-                    "group": "certe@1"
-                },
-                {
-                    "command": "certe.openFolder",
-                    "group": "certe@2"
-                },
-                {
-                    "command": "certe.copyFolderLink",
-                    "group": "certe@3"
-                },
-                {
-                    "command": "certe.openSharePoint",
-                    "group": "certe@4"
-                },
-                {
-                    "command": "certe.validate",
-                    "group": "certe@5"
-                },
-                {
-                    "command": "certe.authorise",
-                    "group": "certe@6"
-                }
-            ],
             "editor/actions/left": [
                 {
                     "command": "certe.moveTask",
+                    "when": "resourceScheme == 'file'",
                     "group": "certe@1"
                 },
                 {
                     "command": "certe.openFolder",
+                    "when": "resourceScheme == 'file'",
                     "group": "certe@2"
                 },
                 {
                     "command": "certe.copyFolderLink",
+                    "when": "resourceScheme == 'file'",
                     "group": "certe@3"
                 },
                 {
                     "command": "certe.openSharePoint",
+                    "when": "resourceScheme == 'file'",
                     "group": "certe@4"
                 },
                 {
-                    "command": "certe.validate",
+                    "command": "certe.validateRequest",
+                    "when": "resourceScheme == 'file'",
                     "group": "certe@5"
                 },
                 {
-                    "command": "certe.authorise",
+                    "command": "certe.validate",
+                    "when": "resourceScheme == 'file'",
                     "group": "certe@6"
+                },
+                {
+                    "command": "certe.authorise",
+                    "when": "resourceScheme == 'file'",
+                    "group": "certe@7"
                 }
             ],
 
