@@ -2,6 +2,42 @@ import * as vscode from 'vscode';
 import { tryAcquirePositronApi } from "@posit-dev/positron";
 import * as path from "path";
 import * as os from "os";
+import { exec } from "child_process";
+
+export function copyFileToClipboard(filePath: string) {
+    const platform = os.platform();
+
+    if (platform === "win32") {
+        // Windows: use PowerShell to copy file to clipboard
+        const command = `powershell -command "Set-Clipboard -Path '${filePath}'"`;
+        exec(command, (err, stdout, stderr) => {
+            if (err) {
+                vscode.window.showErrorMessage(`Error copying file: ${stderr}`);
+            }
+        });
+
+    } else if (platform === "darwin") {
+        // macOS: use AppleScript to set clipboard to file alias
+        const appleScript = `set the clipboard to POSIX file "${filePath}"`;
+        exec(`osascript -e '${appleScript}'`, (err, stdout, stderr) => {
+            if (err) {
+                vscode.window.showErrorMessage(`Error copying file: ${stderr}`);
+            }
+        });
+
+    } else if (platform === "linux") {
+        // Linux: use xclip with file URI and appropriate MIME type
+        const command = `printf "copy\nfile://${filePath}" | xclip -selection clipboard -t x-special/gnome-copied-files`;
+        exec(command, (err, stdout, stderr) => {
+            if (err) {
+                vscode.window.showErrorMessage("Failed to copy file using xclip. Is xclip installed?");
+            }
+        });
+
+    } else {
+        vscode.window.showWarningMessage("Platform not supported for file copy to clipboard.");
+    }
+  }
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -57,17 +93,32 @@ export function activate(context: vscode.ExtensionContext) {
     );
     context.subscriptions.push(openFolderCmd);
 
-    const copyFolderLinkCmd = vscode.commands.registerCommand(
-        "certe.copyFolderLink",
-        () => {
-            positron?.runtime.executeCode(
-                "r",
-                'certeprojects:::positron_copyFolderLink()',
-                false // do not focus to Console
-            );
+    const copyLinkCmd = vscode.commands.registerCommand("certe.copyLink", async (uri?: vscode.Uri) => {
+        const fileName = uri?.fsPath ? path.basename(uri.fsPath) : "??";
+        const fileNameFull = uri?.fsPath ?? "??";
+        const result = await vscode.window.showInformationMessage(
+            `Naar het klembord kopiëren:`,
+            { modal: true },
+            "Link naar huidige map (alleen-lezen)",
+            `Link naar '${fileName}' (alleen-lezen)`,
+            `Link naar '${fileName}' (schrijven)`,
+            `Bestand '${fileName}' zelf`
+        );
+        if (result === "Link naar huidige map (alleen-lezen)") {
+            positron?.runtime.executeCode("r", 'certeprojects:::positron_copyLink("folder", type = "view")', false);
+        } else if (result === `Link naar '${fileName}' (alleen-lezen)`) {
+            positron?.runtime.executeCode("r", 'certeprojects:::positron_copyLink("file", type = "view")', false);
+        } else if (result === `Link naar '${fileName}' (schrijven)`) {
+            positron?.runtime.executeCode("r", 'certeprojects:::positron_copyLink("file", type = "edit")', false);
+        } else if (result === `Bestand '${fileName}' zelf`) {
+            copyFileToClipboard(fileNameFull);
+            vscode.window.showInformationMessage(
+                'Bestand naar klembord gekopieerd.',
+                { modal: false }
+              );
         }
-    );
-    context.subscriptions.push(copyFolderLinkCmd);
+    });
+    context.subscriptions.push(copyLinkCmd);
 
     const openSharePointCmd = vscode.commands.registerCommand(
         "certe.openSharePoint",

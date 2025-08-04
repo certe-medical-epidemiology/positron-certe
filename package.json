@@ -2,7 +2,7 @@
     "name": "positron-certe",
     "displayName": "Certe MedEpi",
     "description": "Positron Extension for Certe, MedEpi to allow Positron project support.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "icon": "images/logo.png",
     "publisher": "Stichting Certe Medische Diagnostiek en Advies",
     "author": "Matthijs Berends <m.berends@certe.nl>",
@@ -74,8 +74,8 @@
                 }
             },
             {
-                "command": "certe.copyFolderLink",
-                "title": "Maplink kopiëren",
+                "command": "certe.copyLink",
+                "title": "Link",
                 "icon": "$(link)",
                 "actionBarOptions": {
                     "controlType": "button",
@@ -152,7 +152,7 @@
                     "group": "certe@2"
                 },
                 {
-                    "command": "certe.copyFolderLink",
+                    "command": "certe.copyLink",
                     "when": "resourceScheme == 'file'",
                     "group": "certe@3"
                 },
