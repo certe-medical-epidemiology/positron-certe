@@ -120,6 +120,18 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(copyLinkCmd);
 
+    const versionsCmd = vscode.commands.registerCommand(
+        "certe.versions",
+        () => {
+            positron?.runtime.executeCode(
+                "r",
+                'certeprojects:::positron_versions()',
+                false // do not focus to Console
+            );
+        }
+    );
+    context.subscriptions.push(versionsCmd);
+
     const openSharePointCmd = vscode.commands.registerCommand(
         "certe.openSharePoint",
         () => {

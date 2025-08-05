@@ -2,7 +2,7 @@
     "name": "positron-certe",
     "displayName": "Certe MedEpi",
     "description": "Positron Extension for Certe, MedEpi to allow Positron project support.",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "icon": "images/logo.png",
     "publisher": "Stichting Certe Medische Diagnostiek en Advies",
     "author": "Matthijs Berends <m.berends@certe.nl>",
@@ -83,6 +83,15 @@
                 }
             },
             {
+                "command": "certe.versions",
+                "title": "Versies",
+                "icon": "$(files)",
+                "actionBarOptions": {
+                    "controlType": "button",
+                    "displayTitle": true
+                }
+            },
+            {
                 "command": "certe.validateRequest",
                 "title": "Validatieverzoek",
                 "icon": "$(feedback)",
@@ -157,24 +166,29 @@
                     "group": "certe@3"
                 },
                 {
-                    "command": "certe.openSharePoint",
+                    "command": "certe.versions",
                     "when": "resourceScheme == 'file'",
                     "group": "certe@4"
                 },
                 {
-                    "command": "certe.validateRequest",
+                    "command": "certe.openSharePoint",
                     "when": "resourceScheme == 'file'",
                     "group": "certe@5"
                 },
                 {
-                    "command": "certe.validate",
+                    "command": "certe.validateRequest",
                     "when": "resourceScheme == 'file'",
                     "group": "certe@6"
                 },
                 {
-                    "command": "certe.authorise",
+                    "command": "certe.validate",
                     "when": "resourceScheme == 'file'",
                     "group": "certe@7"
+                },
+                {
+                    "command": "certe.authorise",
+                    "when": "resourceScheme == 'file'",
+                    "group": "certe@8"
                 }
             ],
 
