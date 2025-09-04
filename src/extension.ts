@@ -57,17 +57,17 @@ export function activate(context: vscode.ExtensionContext) {
     // set up addins
     const positron = tryAcquirePositronApi();
 
-    // open up our MySQL connection in the Connections pane
-    positron?.runtime.executeCode(
-        "r",
-        'require("certeprojects", quietly = TRUE)',
-        false // do not focus to Console
-    );
-    positron?.runtime.executeCode(
-        "r",
-        'certedb::mysql_init()',
-        false // do not focus to Console
-    );
+    // // open up our MySQL connection in the Connections pane
+    // positron?.runtime.executeCode(
+    //     "r",
+    //     'require("certeprojects", quietly = TRUE)',
+    //     false // do not focus to Console
+    // );
+    // positron?.runtime.executeCode(
+    //     "r",
+    //     'certedb::mysql_init()',
+    //     false // do not focus to Console
+    // );
 
     const moveTaskCmd = vscode.commands.registerCommand(
         "certe.moveTask",
@@ -178,7 +178,7 @@ export function activate(context: vscode.ExtensionContext) {
         const fileName = uri?.fsPath ? path.basename(uri.fsPath) : "??";
         const userName = os.userInfo().username;
         const result = await vscode.window.showWarningMessage(
-            `Hiermee wordt het bestand '${fileName}' nu geautoriseerd als gebruiker '${userName}'.\n\nDit wordt gelogd in SharePoint en de Planner-taak wordt bijgewerkt.`,
+            `Hiermee wordt het bestand '${fileName}' nu geautoriseerd als gebruiker '${userName}'.\n\nDit wordt gelogd in SharePoint.`,
             { modal: true },
             "OK"
         );
@@ -188,29 +188,16 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(authoriseCmd);
 
-
-    const newConsult = vscode.commands.registerCommand(
-        "certe.newConsult",
+    const newProjectConsult = vscode.commands.registerCommand(
+        "certe.newProjectConsult",
         () => {
             positron?.runtime.executeCode(
                 "r",
-                'certeprojects::consult_add()',
+                'certeprojects:::positron_project_consult_add()',
                 false // do not focus to Console
             );
         }
     );
-    context.subscriptions.push(newConsult);
-
-    const newProject = vscode.commands.registerCommand(
-        "certe.newProject",
-        () => {
-            positron?.runtime.executeCode(
-                "r",
-                'certeprojects::project_add()',
-                false // do not focus to Console
-            );
-        }
-    );
-    context.subscriptions.push(newProject);
+    context.subscriptions.push(newProjectConsult);
 
   }
