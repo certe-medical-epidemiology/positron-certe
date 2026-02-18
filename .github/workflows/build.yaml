@@ -31,8 +31,10 @@ jobs:
             arch: arm64
             npm_config_arch: arm64
     runs-on: ${{ matrix.os }}
+
     env:
       target: ${{ matrix.platform }}-${{ matrix.arch }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -51,4 +53,9 @@ jobs:
         with:
           name: positron-certe-${{ matrix.name }}
           path: "*.vsix"
-  
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "*.vsix"
