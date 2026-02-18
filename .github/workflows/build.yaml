@@ -59,7 +59,7 @@ jobs:
         with:
           tag_name: continuous
           draft: false
-          prerelease: true
+          prerelease: false
           body: "Automated build from latest push."
           files: artifacts/**/*.vsix
         env:
